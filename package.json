@@ -1,0 +1,25 @@
+{
+  "name": "@illithia/types",
+  "version": "0.0.1",
+  "description": "TypeScript type definitions for illithia javascript projects.",
+  "module": "src/index.ts",
+  "type": "module",
+  "author": "Angelo Carasig <angelocarasig15@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/illithia-org/types.git"
+  },
+  "keywords": [
+    "illithia"
+  ],
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
