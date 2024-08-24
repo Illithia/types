@@ -1,0 +1,65 @@
+name: Node.js Package
+
+on:
+  release:
+    types: [created]
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      # Install Bun
+      - name: Install Bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          echo 'export PATH="$HOME/.bun/bin:$PATH"' >> $GITHUB_ENV
+          
+      # Set up Node.js to use npm later
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      
+      # Install dependencies using Bun
+      - run: bun install
+
+      # Run tests using Bun
+      - run: bun test
+
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Install Bun
+      - name: Install Bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          echo 'export PATH="$HOME/.bun/bin:$PATH"' >> $GITHUB_ENV
+
+      # Set up Node.js to use npm for publishing
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+      
+      # Install dependencies using Bun
+      - run: bun install
+
+      # Set version number based on run number
+      - name: Set Version Number
+        run: |
+          VERSION="1.0.${{ github.run_number }}"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          npm version $VERSION --no-git-tag-version
+
+      # Publish package using npm
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
