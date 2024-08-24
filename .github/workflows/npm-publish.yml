@@ -27,11 +27,13 @@ jobs:
     environment: prod
     steps:
       - uses: actions/checkout@v4
+
+      # Add bun
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
-
-      # Set up Node.js to use npm for publishing
+      
+      # Add npm
       - uses: actions/setup-node@v4
         with:
           node-version: 20
