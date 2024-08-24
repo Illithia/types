@@ -13,17 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
-      # Install Bun
-      - name: Install Bun
-        run: |
-          curl -fsSL https://bun.sh/install | bash
-          echo 'export PATH="$HOME/.bun/bin:$PATH"' >> $GITHUB_ENV
-          
-      # Set up Node.js to use npm later
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      - uses: oven-sh/setup-bun@v2
       
       # Install dependencies using Bun
       - run: bun install
@@ -37,12 +27,9 @@ jobs:
     environment: prod
     steps:
       - uses: actions/checkout@v4
-
-      # Install Bun
-      - name: Install Bun
-        run: |
-          curl -fsSL https://bun.sh/install | bash
-          echo 'export PATH="$HOME/.bun/bin:$PATH"' >> $GITHUB_ENV
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
 
       # Set up Node.js to use npm for publishing
       - uses: actions/setup-node@v4
