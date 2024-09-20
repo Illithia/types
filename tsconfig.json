@@ -29,6 +29,11 @@
     "emitDeclarationOnly": true,
     "outDir": "./dist",
     "rootDir": "./src",
+
+    "paths": {
+      "@illithia/types/core": ["./src/types/core"],
+      "@illithia/types/*": ["./src/types/*"]
+    },
   },
   "include": ["src"]
 }
