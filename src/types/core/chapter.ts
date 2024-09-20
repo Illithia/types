@@ -1,7 +1,6 @@
 export type Chapter = {
 	mangaId: string;
 	slug: string;
-	pages: number;
 	chapterNumber: number;
 	chapterTitle: string;
 
